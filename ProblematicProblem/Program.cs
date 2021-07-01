@@ -6,14 +6,24 @@ namespace ProblematicProblem
 {
     class Program
     {
-                
+
         static bool cont = true;
         static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" };
 
         static void Main(string[] args)
         {
             Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
-            cont = bool.Parse(Console.ReadLine());
+
+            string userInput = Console.ReadLine();
+
+            if (userInput.ToLower() == "yes")
+            {
+                cont = true;
+            }
+            else if (userInput.ToLower() == "no")
+            {
+                cont = false;
+            }
 
             Console.WriteLine();
 
@@ -28,7 +38,18 @@ namespace ProblematicProblem
             Console.WriteLine();
 
             Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
-            bool seeList = bool.Parse(Console.ReadLine());
+            bool seeList = true;
+
+            string seeActivities = Console.ReadLine();
+
+            if (seeActivities.ToLower() == "sure")
+            {
+                seeList = true;
+            }
+            else if (seeActivities.ToLower() == "no")
+            {
+                seeList = false;
+            }
 
             if (seeList)
             {
@@ -40,7 +61,18 @@ namespace ProblematicProblem
 
                 Console.WriteLine();
                 Console.Write("Would you like to add any activities before we generate one? yes/no: ");
-                bool addToList = bool.Parse(Console.ReadLine());
+                bool addToList = true;
+                string addAct = Console.ReadLine();
+
+                if (addAct.ToLower() == "yes")
+                {
+                    addToList = true;
+                }
+                else if (addAct.ToLower() == "no")
+                {
+                    addToList = false;
+                }
+
                 Console.WriteLine();
 
                 while (addToList)
@@ -58,10 +90,20 @@ namespace ProblematicProblem
 
                     Console.WriteLine();
                     Console.WriteLine("Would you like to add more? yes/no: ");
-                    addToList = bool.Parse(Console.ReadLine());
+                    
+                    string addMore = Console.ReadLine();
+
+                    if (addMore.ToLower() == "yes")
+                    {
+                        addToList = true;
+                    }
+                    else if (addMore.ToLower() == "no")
+                    {
+                        addToList = false;
+                    }
                 }
             }
-            
+
             while (cont)
             {
                 Console.Write("Connecting to the database");
@@ -89,7 +131,7 @@ namespace ProblematicProblem
 
                 string randomActivity = activities[randomNumber];
 
-                if (userAge > 21 && randomActivity == "Wine Tasting")
+                if (userAge < 21 && randomActivity == "Wine Tasting")
                 {
                     Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
                     Console.WriteLine("Pick something else!");
@@ -101,9 +143,19 @@ namespace ProblematicProblem
                     randomActivity = activities[randomNumber];
                 }
 
-                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? Keep/Redo: ");
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
                 Console.WriteLine();
-                cont = bool.Parse(Console.ReadLine());
+                
+                string keepAct = Console.ReadLine();
+
+                if (keepAct.ToLower() == "keep")
+                {
+                    cont = false;
+                }
+                else if (keepAct.ToLower() == "redo")
+                {
+                    cont = true;
+                }
             }
         }
     }
